@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<Extern href="stdidcmd.h"/>
+
+	<Extern href="vsshlids.h"/>
+
+	<Commands package="guidCopyWithMinIndentPackage">
+		<Groups>
+			<Group guid="guidCopyWithMinIndentPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+			</Group>
+		</Groups>
+
+		<Buttons>
+			<Button guid="guidCopyWithMinIndentPackageCmdSet" id="CopySelectionCommandId" priority="0x0100" type="Button">
+				<Parent guid="guidCopyWithMinIndentPackageCmdSet" id="MyMenuGroup" />
+				<Icon guid="guidImages" id="bmpPic1" />
+				<Strings>
+					<ButtonText>Copy Selection With Minimal Indention</ButtonText>
+				</Strings>
+			</Button>
+		</Buttons>
+
+		<Bitmaps>
+			<Bitmap guid="guidImages" href="Resources\CopySelectionCommand.png" usedList="bmpPic1, bmpPic2"/>
+		</Bitmaps>
+	</Commands>
+
+	<Symbols>
+		<GuidSymbol name="guidCopyWithMinIndentPackage" value="{69ec4646-9854-404e-96f5-878231b9c5f8}" />
+
+		<GuidSymbol name="guidCopyWithMinIndentPackageCmdSet" value="{2cc1eee4-d7b3-4c83-8679-a7952afb4737}">
+			<IDSymbol name="MyMenuGroup" value="0x1020" />
+			<IDSymbol name="CopySelectionCommandId" value="0x0100" />
+		</GuidSymbol>
+
+		<GuidSymbol name="guidImages" value="{fcb62703-4332-4ab1-b7cb-a25b77a8ac86}" >
+			<IDSymbol name="bmpPic1" value="1" />
+			<IDSymbol name="bmpPic2" value="2" />
+		</GuidSymbol>
+	</Symbols>
+</CommandTable>
