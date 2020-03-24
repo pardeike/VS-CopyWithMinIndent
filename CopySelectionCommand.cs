@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel.Design;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
 using Task = System.Threading.Tasks.Task;
 
 namespace CopyWithMinIndent
@@ -23,13 +24,14 @@ namespace CopyWithMinIndent
 			var menuItem = new MenuCommand(Execute, menuCommandID);
 			commandService.AddCommand(menuItem);
 		}
+
 		public static CopySelectionCommand Instance
 		{
 			get;
 			private set;
 		}
 
-		private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider => package;
+		private IAsyncServiceProvider ServiceProvider => package;
 
 		public static async Task InitializeAsync(AsyncPackage package)
 		{
@@ -42,6 +44,13 @@ namespace CopyWithMinIndent
 		private void Execute(object sender, EventArgs e)
 		{
 			_ = ExecuteAsync(sender, e);
+		}
+
+		private static bool ModifierPressed()
+		{
+			return
+				(Keyboard.GetKeyStates(Key.LeftAlt) & KeyStates.Down) > 0 ||
+				(Keyboard.GetKeyStates(Key.RightAlt) & KeyStates.Down) > 0;
 		}
 
 		private async Task ExecuteAsync(object sender, EventArgs e)
@@ -76,8 +85,11 @@ namespace CopyWithMinIndent
 							lines = lines.Select(line => line.Substring(1)).ToList();
 						}
 						var result = lines.Aggregate("", (prev, curr) => $"{prev}{(string.IsNullOrEmpty(prev) ? "" : "\n")}{curr}");
-						if (language != "Plain Text")
-							result = $"```{language}\n{result}\n```";
+						if (ModifierPressed())
+						{
+							var type = language != "Plain Text" ? language : "";
+							result = $"```{type}\n{result}\n```";
+						}
 						System.Windows.Forms.Clipboard.SetText(result);
 					}
 				}
