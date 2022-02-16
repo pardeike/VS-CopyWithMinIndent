@@ -49,8 +49,8 @@ namespace CopyWithMinIndent
 		private static bool ModifierPressed()
 		{
 			return
-				(Keyboard.GetKeyStates(Key.LeftAlt) & KeyStates.Down) > 0 ||
-				(Keyboard.GetKeyStates(Key.RightAlt) & KeyStates.Down) > 0;
+				(Keyboard.GetKeyStates(Key.LeftShift) & KeyStates.Down) > 0 ||
+				(Keyboard.GetKeyStates(Key.RightShift) & KeyStates.Down) > 0;
 		}
 
 		private async Task ExecuteAsync(object sender, EventArgs e)
